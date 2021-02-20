@@ -1,14 +1,3 @@
-file="trackers.txt"
-echo "$(curl -Ns https://trackerslist.com/best_aria2.txt | awk '$1' | tr ',' '\n')" > trackers.txt
-echo "$(curl -Ns https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt)" >> trackers.txt
-tmp=$(sort trackers.txt | uniq) && echo "$tmp" > trackers.txt
-sed -i '/^$/d' trackers.txt
-sed -z -i 's/\n/,/g' trackers.txt
-tracker_list=$(cat trackers.txt)
-if [ -f $file ] ; then
-    rm $file
-fi
-tracker="[$tracker_list]"
 export MAX_DOWNLOAD_SPEED=0
 export MAX_CONCURRENT_DOWNLOADS=7
 aria2c --enable-rpc --rpc-listen-all=false --rpc-listen-port 6800 \
